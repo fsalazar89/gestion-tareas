@@ -1,0 +1,12 @@
+[submodule "base-datos-gestion-tareas"]
+	path = base-datos-gestion-tareas
+	url = https://github.com/fsalazar89/base-datos-gestion-tareas.git
+[submodule "microservicio-autenticacion"]
+	path = microservicio-autenticacion
+	url = https://github.com/fsalazar89/microservicio-autenticacion.git
+[submodule "microservicio-gestion-tareas"]
+	path = microservicio-gestion-tareas
+	url = https://github.com/fsalazar89/microservicio-gestion-tareas.git
+[submodule "gestion-tareas-frontend"]
+	path = gestion-tareas-frontend
+	url = https://github.com/fsalazar89/gestion-tareas-frontend.git
