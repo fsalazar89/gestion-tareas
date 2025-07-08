@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: gestion_tareas
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: microservicios_db
+    ports:
+      - "5577:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./base-datos-gestion-tareas/query.sql:/docker-entrypoint-initdb.d/init.sql
+
+  microservicio-autenticacion:
+    build: ./microservicio-autenticacion
+    ports:
+      - "8099:8099"
+    depends_on:
+      - postgres
+    environment:
+      AMBIENTE_APP: produccion
+
+  microservicio-gestion-tareas:
+    build: ./microservicio-gestion-tareas
+    ports:
+      - "8098:8098"
+    depends_on:
+      - postgres
+    environment:
+      AMBIENTE_APP: produccion
+
+  frontend-gestion-tareas:
+    build: 
+      context: ./gestion-tareas-frontend
+      dockerfile: Dockerfile
+      args:
+        build_env: production
+    ports:
+      - "4200:80"
+    depends_on:
+      - microservicio-gestion-tareas
+      - microservicio-autenticacion
+
+volumes:
+  postgres_data:
